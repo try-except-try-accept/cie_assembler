@@ -29,12 +29,19 @@ class MemoryLocation(QTextEdit):
 		self.last_text = "000"
 		self.error = error_display
 
-	def textChanged(self) -> None:
+		super().textChanged.connect(self.validate)
+
+	def validate(self) -> None:
 		print("Leaving")
 		new_value = self.toPlainText()
+
+		print(type(new_value))
 		if not new_value.isdigit():
-			self.error.display("Illegal value")
+			print("error")
+			# 	self.error.display("Illegal value")
 			self.setText(self.last_text)
+		elif len(new_value) > 3:
+			self.setText(new_value[:3])
 		else:
 			self.last_text = new_value
 
