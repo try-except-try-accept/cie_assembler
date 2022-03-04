@@ -1,5 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene, QApplication, QWidget, QTextEdit, QGridLayout, QLabel
+from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene, QApplication, QWidget, QTextEdit, QGridLayout, QLabel,\
+	QPushButton, QComboBox
 from PyQt5.QtCore import QRect, QEvent
 from PyQt5.QtGui import QTextFormat
 
@@ -7,10 +8,40 @@ HEIGHT = 800
 WIDTH = 1000
 EDITOR_WIDTH = WIDTH // 4
 EDITOR_HEIGHT = HEIGHT // 2
-RAM_WIDTH = WIDTH // 2
+BUTTON_WIDTH = 100
+BUTTON_HEIGHT = 30
+RAM_WIDTH = WIDTH//2
 RAM_HEIGHT = RAM_WIDTH
 RAM_CELL_WIDTH = RAM_WIDTH // 10
 RAM_CELL_HEIGHT = RAM_HEIGHT // 40
+
+class CodeEditor(QWidget):
+	def __init__(self, num, parent=None):
+		super().__init__(parent)
+
+		self.editor = QTextEdit(parent=self)
+		self.assemble = QPushButton(parent=self)
+		self.assemble.setText('ASSEMBLE')
+
+		height = EDITOR_HEIGHT - BUTTON_HEIGHT
+		width = EDITOR_WIDTH
+
+		horiz = 0
+		vertical = 0
+
+		if num == 1:
+			horiz = WIDTH//4*3
+		elif num == 2:
+			horiz = WIDTH//4*3
+			vertical = HEIGHT // 2
+		elif num == 3:
+			vertical = HEIGHT // 2
+
+		self.editor.setGeometry(horiz, vertical, width, height)
+		self.assemble.setGeometry(horiz, vertical+height, BUTTON_WIDTH, BUTTON_HEIGHT)
+
+		# can't click top 2 code editors, why?
+
 
 class ErrorDisplay(QLabel):
 
@@ -22,10 +53,9 @@ class ErrorDisplay(QLabel):
 		self.setText(msg)
 
 class MemoryLocation(QTextEdit):
-	def __init__(self, x, y, error_display):
+	def __init__(self, error_display):
 		super().__init__()
 		self.setText("000")
-		self.setGeometry(x, y, RAM_CELL_WIDTH, RAM_CELL_HEIGHT)
 		self.last_text = "000"
 		self.error = error_display
 
@@ -55,22 +85,22 @@ class MyApplication(QWidget):
 		super().__init__()
 
 
-		# self.scene = QGraphicsScene(parent=self)
-		# self.scene.addText("Hello, world!")
-		# self.setWindowTitle("CIE Assembler")
-		# self.view = QGraphicsView(self.scene, parent=self)
-		# self.view.setGeometry(0, 0, 50, 10)
-		# self.view.show()
-		# self.code_editors = [QTextEdit(parent=self) for i in range(4)]
-		# self.code_editors[0].setGeometry(0, 0, EDITOR_WIDTH, EDITOR_HEIGHT)
-		# self.code_editors[1].setGeometry(WIDTH//2, 0, EDITOR_WIDTH, EDITOR_HEIGHT)
-		# self.code_editors[2].setGeometry(WIDTH//2, HEIGHT//2, EDITOR_WIDTH, EDITOR_HEIGHT)
-		# self.code_editors[3].setGeometry(0, HEIGHT//2, EDITOR_WIDTH, EDITOR_HEIGHT)
+		self.scene = QGraphicsScene(parent=self)
+		self.scene.addText("Hello, world!")
+		self.setWindowTitle("CIE Assembler")
+		self.view = QGraphicsView(self.scene, parent=self)
+		self.view.setGeometry(0, 0, 50, 10)
+		self.view.show()
+		self.code_editors = [CodeEditor(i, parent=self) for i in range(4)]
+
 		self.error_display = ErrorDisplay()
 		self.ram_container = QWidget(parent=self)
 		grid = QGridLayout()
 		self.ram_container.setLayout(grid)
-		self.ram_container.setGeometry(0, HEIGHT//4, RAM_WIDTH, RAM_HEIGHT)
+		self.ram_container.setGeometry(WIDTH//4, HEIGHT//4, RAM_WIDTH, RAM_HEIGHT)
+
+
+		[grid.setColumnMinimumWidth(i, RAM_CELL_WIDTH) for i in range(10)]
 
 		self.ram = []
 
@@ -78,7 +108,7 @@ class MyApplication(QWidget):
 
 		address = 0
 		for row in range(10):
-			address += 10
+
 			# for column in range(10):
 			# 	x, y = column*RAM_CELL_WIDTH, row*RAM_CELL_HEIGHT
 			# 	label = QLabel()
@@ -87,11 +117,17 @@ class MyApplication(QWidget):
 			# 	label.setGeometry(x, y, RAM_CELL_WIDTH, RAM_CELL_HEIGHT)
 
 			for column in range(10):
-				x, y = column*RAM_CELL_WIDTH, (row*RAM_CELL_HEIGHT)+RAM_CELL_HEIGHT
-				memory_location = MemoryLocation(x, y, self.error_display)
-				self.ram.append(memory_location)
-				grid.addWidget(memory_location, x, y)
+				label = QLabel()
+				label.setText(str(address + column))
+				grid.addWidget(label)
 
+
+			for column in range(10):
+				memory_location = MemoryLocation(self.error_display)
+				self.ram.append(memory_location)
+				grid.addWidget(memory_location)
+
+			address += 10
 
 		self.ram_container.show()
 
