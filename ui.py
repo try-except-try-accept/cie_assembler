@@ -1,27 +1,35 @@
 import sys
-from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene, QApplication, QWidget, QTextEdit, QGridLayout, QLabel,\
+from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene, QApplication, QWidget, QTextEdit, QGridLayout, QBoxLayout, QLabel,\
 	QPushButton, QComboBox
 from PyQt5.QtCore import QRect, QEvent
 from PyQt5.QtGui import QTextFormat
+from math import sqrt
 
-HEIGHT = 800
-WIDTH = 1000
-EDITOR_WIDTH = WIDTH // 4
-EDITOR_HEIGHT = HEIGHT // 2
-BUTTON_WIDTH = 100
-BUTTON_HEIGHT = 30
-RAM_WIDTH = WIDTH//2
-RAM_HEIGHT = RAM_WIDTH
-RAM_CELL_WIDTH = RAM_WIDTH // 10
-RAM_CELL_HEIGHT = RAM_HEIGHT // 40
+from config import *
+
+class AssembleButton(QPushButton):
+
+	def __init__(self, parent=None):
+		super().__init__(parent)
+		self.setText('ASSEMBLE')
+		super().clicked.connect(self.assemble)
+
+	def assemble(self):
+		print("Assembling!")
 
 class CodeEditor(QWidget):
 	def __init__(self, num, parent=None):
 		super().__init__(parent)
 
 		self.editor = QTextEdit(parent=self)
-		self.assemble = QPushButton(parent=self)
-		self.assemble.setText('ASSEMBLE')
+		self.assemble = AssembleButton(parent=self)
+
+
+		box_layout = QBoxLayout(QBoxLayout.TopToBottom)
+		self.setLayout(box_layout)
+
+		box_layout.addWidget(self.editor, 1)
+		box_layout.addWidget(self.assemble, 1)
 
 		height = EDITOR_HEIGHT - BUTTON_HEIGHT
 		width = EDITOR_WIDTH
@@ -31,16 +39,18 @@ class CodeEditor(QWidget):
 
 		if num == 1:
 			horiz = WIDTH//4*3
+			self.setStyleSheet("background-color:orange")
 		elif num == 2:
 			horiz = WIDTH//4*3
-			vertical = HEIGHT // 2
+			vertical = (HEIGHT // 2)
 		elif num == 3:
-			vertical = HEIGHT // 2
+			vertical = (HEIGHT // 2)
 
+		self.setGeometry(horiz, vertical, width, EDITOR_HEIGHT)
 		self.editor.setGeometry(horiz, vertical, width, height)
 		self.assemble.setGeometry(horiz, vertical+height, BUTTON_WIDTH, BUTTON_HEIGHT)
 
-		# can't click top 2 code editors, why?
+
 
 
 class ErrorDisplay(QLabel):
@@ -107,7 +117,9 @@ class MyApplication(QWidget):
 
 
 		address = 0
-		for row in range(10):
+
+		grid_size = int(sqrt(RAM_SIZE))
+		for row in range(grid_size):
 
 			# for column in range(10):
 			# 	x, y = column*RAM_CELL_WIDTH, row*RAM_CELL_HEIGHT
@@ -116,18 +128,18 @@ class MyApplication(QWidget):
 			# 	grid.addWidget(label, x, y)
 			# 	label.setGeometry(x, y, RAM_CELL_WIDTH, RAM_CELL_HEIGHT)
 
-			for column in range(10):
+			for column in range(grid_size):
 				label = QLabel()
 				label.setText(str(address + column))
 				grid.addWidget(label)
 
 
-			for column in range(10):
+			for column in range(grid_size):
 				memory_location = MemoryLocation(self.error_display)
 				self.ram.append(memory_location)
 				grid.addWidget(memory_location)
 
-			address += 10
+			address += grid_size
 
 		self.ram_container.show()
 
