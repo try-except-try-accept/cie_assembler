@@ -4,7 +4,7 @@ LDM den operand/LDM #7,OUT/True
 LDM hex operand/LDM &07,OUT/False
 LDM bin operand/LDM B0111,OUT/False
 LDM valid address operand/LDM #7,STO 99,LDM 99,OUT/False
-LDM OUT/ of range address operand/LDM 123,OUT/False
+LDM out of range address operand/LDM 123,OUT/False
 LDM invalid address operand/LDM a99,OUT/False
 LDM valid symbol operand/LDM TEST,OUT,TEST: 7/False
 LDM invalid symbol operand/LDM TEST,OUT/False
@@ -13,7 +13,7 @@ LDD den operand/LDD #7,OUT/False
 LDD hex operand/LDD &07,OUT/False
 LDD bin operand/LDD B0111,OUT/False
 LDD valid address operand/LDM #7,STO 99,LDD 99,OUT/True
-LDD OUT/ of range address operand/LDD 123,OUT/False
+LDD out of range address operand/LDD 123,OUT/False
 LDD invalid address operand/LDD a99,OUT/False
 LDD valid symbol operand/LDD TEST,OUT,TEST: 7/True
 LDD invalid symbol operand/LDD TEST,OUT/False
@@ -22,7 +22,7 @@ LDI den operand/LDI #7,OUT/False
 LDI hex operand/LDI &07,OUT/False
 LDI bin operand/LDI B0111,OUT/False
 LDI valid address operand/LDM #7,STO 99,LDI 99,OUT/True
-LDI OUT/ of range address operand/LDI 123,OUT/False
+LDI out of range address operand/LDI 123,OUT/False
 LDI invalid address operand/LDI a99,OUT/False
 LDI valid symbol operand/LDI TEST,OUT,TEST: 7/True
 LDI invalid symbol operand/LDI TEST,OUT/False
@@ -31,7 +31,7 @@ LDX den operand/LDX #7,OUT/False
 LDX hex operand/LDX &07,OUT/False
 LDX bin operand/LDX B0111,OUT/False
 LDX valid address operand/LDM #7,STO 99,LDX 99,OUT/True
-LDX OUT/ of range address operand/LDX 123,OUT/False
+LDX out of range address operand/LDX 123,OUT/False
 LDX invalid address operand/LDX a99,OUT/False
 LDX valid symbol operand/LDX TEST,OUT,TEST: 7/True
 LDX invalid symbol operand/LDX TEST,OUT/False
@@ -40,7 +40,7 @@ LDR den operand/LDR #7,OUT/True
 LDR hex operand/LDR &07,OUT/False
 LDR bin operand/LDR B0111,OUT/False
 LDR valid address operand/LDM #7,STO 99,LDR 99,OUT/False
-LDR OUT/ of range address operand/LDR 123,OUT/False
+LDR out of range address operand/LDR 123,OUT/False
 LDR invalid address operand/LDR a99,OUT/False
 LDR valid symbol operand/LDR TEST,OUT,TEST: 7/False
 LDR invalid symbol operand/LDR TEST,OUT/False
@@ -49,7 +49,7 @@ MOV den operand/MOV #7,OUT/False
 MOV hex operand/MOV &07,OUT/False
 MOV bin operand/MOV B0111,OUT/False
 MOV valid address operand/LDM #7,STO 99,MOV 99,OUT/False
-MOV OUT/ of range address operand/MOV 123,OUT/False
+MOV out of range address operand/MOV 123,OUT/False
 MOV invalid address operand/MOV a99,OUT/False
 MOV valid symbol operand/MOV TEST,OUT,TEST: 7/False
 MOV invalid symbol operand/MOV TEST,OUT/False
@@ -58,7 +58,7 @@ STO den operand/STO #7,OUT/False
 STO hex operand/STO &07,OUT/False
 STO bin operand/STO B0111,OUT/False
 STO valid address operand/LDM #7,STO 99,STO 99,OUT/True
-STO OUT/ of range address operand/STO 123,OUT/False
+STO out of range address operand/STO 123,OUT/False
 STO invalid address operand/STO a99,OUT/False
 STO valid symbol operand/STO TEST,OUT,TEST: 7/True
 STO invalid symbol operand/STO TEST,OUT/False
@@ -67,7 +67,7 @@ ADD den operand/ADD #7,OUT/True
 ADD hex operand/ADD &07,OUT/True
 ADD bin operand/ADD B0111,OUT/True
 ADD valid address operand/LDM #7,STO 99,ADD 99,OUT/True
-ADD OUT/ of range address operand/ADD 123,OUT/False
+ADD out of range address operand/ADD 123,OUT/False
 ADD invalid address operand/ADD a99,OUT/False
 ADD valid symbol operand/ADD TEST,OUT,TEST: 7/True
 ADD invalid symbol operand/ADD TEST,OUT/False
@@ -76,7 +76,7 @@ SUB den operand/SUB #7,OUT/True
 SUB hex operand/SUB &07,OUT/True
 SUB bin operand/SUB B0111,OUT/True
 SUB valid address operand/LDM #7,STO 99,SUB 99,OUT/True
-SUB OUT/ of range address operand/SUB 123,OUT/False
+SUB out of range address operand/SUB 123,OUT/False
 SUB invalid address operand/SUB a99,OUT/False
 SUB valid symbol operand/SUB TEST,OUT,TEST: 7/True
 SUB invalid symbol operand/SUB TEST,OUT/False
@@ -85,7 +85,7 @@ INC den operand/INC #7,OUT/False
 INC hex operand/INC &07,OUT/False
 INC bin operand/INC B0111,OUT/False
 INC valid address operand/LDM #7,STO 99,INC 99,OUT/True
-INC OUT/ of range address operand/INC 123,OUT/False
+INC out of range address operand/INC 123,OUT/False
 INC invalid address operand/INC a99,OUT/False
 INC valid symbol operand/INC TEST,OUT,TEST: 7/True
 INC invalid symbol operand/INC TEST,OUT/False
@@ -94,7 +94,7 @@ DEC den operand/DEC #7,OUT/False
 DEC hex operand/DEC &07,OUT/False
 DEC bin operand/DEC B0111,OUT/False
 DEC valid address operand/LDM #7,STO 99,DEC 99,OUT/True
-DEC OUT/ of range address operand/DEC 123,OUT/False
+DEC out of range address operand/DEC 123,OUT/False
 DEC invalid address operand/DEC a99,OUT/False
 DEC valid symbol operand/DEC TEST,OUT,TEST: 7/True
 DEC invalid symbol operand/DEC TEST,OUT/False
@@ -103,7 +103,7 @@ JMP den operand/JMP #7,OUT/False
 JMP hex operand/JMP &07,OUT/False
 JMP bin operand/JMP B0111,OUT/False
 JMP valid address operand/LDM #7,STO 99,JMP 99,OUT/True
-JMP OUT/ of range address operand/JMP 123,OUT/False
+JMP out of range address operand/JMP 123,OUT/False
 JMP invalid address operand/JMP a99,OUT/False
 JMP valid symbol operand/JMP TEST,OUT,TEST: 7/True
 JMP invalid symbol operand/JMP TEST,OUT/False
@@ -112,7 +112,7 @@ CMP den operand/CMP #7,OUT/True
 CMP hex operand/CMP &07,OUT/False
 CMP bin operand/CMP B0111,OUT/False
 CMP valid address operand/LDM #7,STO 99,CMP 99,OUT/False
-CMP OUT/ of range address operand/CMP 123,OUT/False
+CMP out of range address operand/CMP 123,OUT/False
 CMP invalid address operand/CMP a99,OUT/False
 CMP valid symbol operand/CMP TEST,OUT,TEST: 7/False
 CMP invalid symbol operand/CMP TEST,OUT/False
@@ -121,7 +121,7 @@ CMI den operand/CMI #7,OUT/False
 CMI hex operand/CMI &07,OUT/False
 CMI bin operand/CMI B0111,OUT/False
 CMI valid address operand/LDM #7,STO 99,CMI 99,OUT/True
-CMI OUT/ of range address operand/CMI 123,OUT/False
+CMI out of range address operand/CMI 123,OUT/False
 CMI invalid address operand/CMI a99,OUT/False
 CMI valid symbol operand/CMI TEST,OUT,TEST: 7/True
 CMI invalid symbol operand/CMI TEST,OUT/False
@@ -130,7 +130,7 @@ JPE den operand/JPE #7,OUT/False
 JPE hex operand/JPE &07,OUT/False
 JPE bin operand/JPE B0111,OUT/False
 JPE valid address operand/LDM #7,STO 99,JPE 99,OUT/True
-JPE OUT/ of range address operand/JPE 123,OUT/False
+JPE out of range address operand/JPE 123,OUT/False
 JPE invalid address operand/JPE a99,OUT/False
 JPE valid symbol operand/JPE TEST,OUT,TEST: 7/True
 JPE invalid symbol operand/JPE TEST,OUT/False
@@ -139,7 +139,7 @@ JPN den operand/JPN #7,OUT/False
 JPN hex operand/JPN &07,OUT/False
 JPN bin operand/JPN B0111,OUT/False
 JPN valid address operand/LDM #7,STO 99,JPN 99,OUT/True
-JPN OUT/ of range address operand/JPN 123,OUT/False
+JPN out of range address operand/JPN 123,OUT/False
 JPN invalid address operand/JPN a99,OUT/False
 JPN valid symbol operand/JPN TEST,OUT,TEST: 7/True
 JPN invalid symbol operand/JPN TEST,OUT/False
@@ -148,25 +148,25 @@ IN den operand/IN #7,OUT/False
 IN hex operand/IN &07,OUT/False
 IN bin operand/IN B0111,OUT/False
 IN valid address operand/LDM #7,STO 99,IN 99,OUT/False
-IN OUT/ of range address operand/IN 123,OUT/False
+IN out of range address operand/IN 123,OUT/False
 IN invalid address operand/IN a99,OUT/False
 IN valid symbol operand/IN TEST,OUT,TEST: 7/False
 IN invalid symbol operand/IN TEST,OUT/False
-OUT/ missing operand/OUT/,OUT/True
-OUT/ den operand/OUT/ #7,OUT/False
-OUT/ hex operand/OUT/ &07,OUT/False
-OUT/ bin operand/OUT/ B0111,OUT/False
-OUT/ valid address operand/LDM #7,STO 99,OUT/ 99,OUT/False
-OUT/ OUT/ of range address operand/OUT/ 123,OUT/False
-OUT/ invalid address operand/OUT/ a99,OUT/False
-OUT/ valid symbol operand/OUT/ TEST,OUT,TEST: 7/False
-OUT/ invalid symbol operand/OUT/ TEST,OUT/False
+OUT missing operand/LDM #7,OUT/True
+OUT den operand/OUT #7,OUT/False
+OUT hex operand/OUT &07,OUT/False
+OUT bin operand/OUT B0111,OUT/False
+OUT valid address operand/LDM #7,STO 99,OUT 99,OUT/False
+OUT out of range address operand/OUT 123,OUT/False
+OUT invalid address operand/OUT a99,OUT/False
+OUT valid symbol operand/OUT TEST,OUT,TEST: 7/False
+OUT invalid symbol operand/OUT TEST,OUT/False
 END missing operand/END,OUT/True
 END den operand/END #7,OUT/False
 END hex operand/END &07,OUT/False
 END bin operand/END B0111,OUT/False
 END valid address operand/LDM #7,STO 99,END 99,OUT/False
-END OUT/ of range address operand/END 123,OUT/False
+END out of range address operand/END 123,OUT/False
 END invalid address operand/END a99,OUT/False
 END valid symbol operand/END TEST,OUT,TEST: 7/False
 END invalid symbol operand/END TEST,OUT/False
@@ -175,7 +175,7 @@ AND den operand/AND #7,OUT/True
 AND hex operand/AND &07,OUT/True
 AND bin operand/AND B0111,OUT/True
 AND valid address operand/LDM #7,STO 99,AND 99,OUT/True
-AND OUT/ of range address operand/AND 123,OUT/False
+AND out of range address operand/AND 123,OUT/False
 AND invalid address operand/AND a99,OUT/False
 AND valid symbol operand/AND TEST,OUT,TEST: 7/True
 AND invalid symbol operand/AND TEST,OUT/False
@@ -184,7 +184,7 @@ OR den operand/OR #7,OUT/True
 OR hex operand/OR &07,OUT/True
 OR bin operand/OR B0111,OUT/True
 OR valid address operand/LDM #7,STO 99,OR 99,OUT/True
-OR OUT/ of range address operand/OR 123,OUT/False
+OR out of range address operand/OR 123,OUT/False
 OR invalid address operand/OR a99,OUT/False
 OR valid symbol operand/OR TEST,OUT,TEST: 7/True
 OR invalid symbol operand/OR TEST,OUT/False
@@ -193,7 +193,7 @@ XOR den operand/XOR #7,OUT/True
 XOR hex operand/XOR &07,OUT/True
 XOR bin operand/XOR B0111,OUT/True
 XOR valid address operand/LDM #7,STO 99,XOR 99,OUT/True
-XOR OUT/ of range address operand/XOR 123,OUT/False
+XOR out of range address operand/XOR 123,OUT/False
 XOR invalid address operand/XOR a99,OUT/False
 XOR valid symbol operand/XOR TEST,OUT,TEST: 7/True
 XOR invalid symbol operand/XOR TEST,OUT/False
@@ -202,7 +202,7 @@ LSL den operand/LSL #7,OUT/True
 LSL hex operand/LSL &07,OUT/False
 LSL bin operand/LSL B0111,OUT/False
 LSL valid address operand/LDM #7,STO 99,LSL 99,OUT/False
-LSL OUT/ of range address operand/LSL 123,OUT/False
+LSL out of range address operand/LSL 123,OUT/False
 LSL invalid address operand/LSL a99,OUT/False
 LSL valid symbol operand/LSL TEST,OUT,TEST: 7/False
 LSL invalid symbol operand/LSL TEST,OUT/False
@@ -211,7 +211,7 @@ LSR den operand/LSR #7,OUT/True
 LSR hex operand/LSR &07,OUT/False
 LSR bin operand/LSR B0111,OUT/False
 LSR valid address operand/LDM #7,STO 99,LSR 99,OUT/False
-LSR OUT/ of range address operand/LSR 123,OUT/False
+LSR out of range address operand/LSR 123,OUT/False
 LSR invalid address operand/LSR a99,OUT/False
 LSR valid symbol operand/LSR TEST,OUT,TEST: 7/False
 LSR invalid symbol operand/LSR TEST,OUT/False

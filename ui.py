@@ -6,25 +6,36 @@ from PyQt5.QtGui import QTextFormat
 from math import sqrt
 
 from config import *
+from syntax_parser import *
 
 class AssembleButton(QPushButton):
 
-	def __init__(self, parent=None):
+	def __init__(self, parent=None, editor=None):
 		super().__init__(parent)
 		self.setText('ASSEMBLE')
 		super().clicked.connect(self.assemble)
+		self.editor = editor
 
 	def assemble(self):
-		print("Assembling!")
+		code = self.editor.toPlainText()
+		parser = Parser(code)
+		print("Parsing codes:")
+		for i, code in enumerate(parser.parse()):
+			print(code)
+			super().parent.ram
+
+
 
 class CodeEditor(QWidget):
-	def __init__(self, num, parent=None):
+	def __init__(self, num, parent=None, ram=None):
 		super().__init__(parent)
 
+
+
 		self.editor = QTextEdit(parent=self)
-		self.assemble = AssembleButton(parent=self)
+		self.assemble = AssembleButton(parent=self, editor=self.editor)
 
-
+		self.ram = ram
 		box_layout = QBoxLayout(QBoxLayout.TopToBottom)
 		self.setLayout(box_layout)
 
@@ -63,6 +74,8 @@ class ErrorDisplay(QLabel):
 		self.setText(msg)
 
 class MemoryLocation(QTextEdit):
+	## need to fix editing RAM cells directly
+
 	def __init__(self, error_display):
 		super().__init__()
 		self.setText("000")
@@ -70,11 +83,6 @@ class MemoryLocation(QTextEdit):
 		self.error = error_display
 
 		super().textChanged.connect(self.validate)
-
-
-	def hasFocus(self):
-		self.setText("")
-
 
 	def validate(self) -> None:
 		print("Leaving")
@@ -108,7 +116,7 @@ class MyApplication(QWidget):
 		self.view = QGraphicsView(self.scene, parent=self)
 		self.view.setGeometry(0, 0, 50, 10)
 		self.view.show()
-		self.code_editors = [CodeEditor(i, parent=self) for i in range(4)]
+
 
 		self.error_display = ErrorDisplay()
 		self.ram_container = QWidget(parent=self)
@@ -116,10 +124,12 @@ class MyApplication(QWidget):
 		self.ram_container.setLayout(grid)
 		self.ram_container.setGeometry(WIDTH//4, HEIGHT//4, RAM_WIDTH, RAM_HEIGHT)
 
+		self.ram = []
 
+		self.code_editors = [CodeEditor(i, parent=self, ram=self.ram) for i in range(4)]
 		[grid.setColumnMinimumWidth(i, RAM_CELL_WIDTH) for i in range(10)]
 
-		self.ram = []
+
 
 
 

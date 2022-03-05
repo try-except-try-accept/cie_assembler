@@ -52,9 +52,6 @@ class Operation:
 
 class Parser:
 
-
-
-
 	def __init__(self, code=""):
 
 		# opcode # operand mode
@@ -99,10 +96,14 @@ class Parser:
 
 		self.symbols = {}
 		self.code = code.replace("\t", " ").split("\n")
+
+
+	def parse(self):
 		self.first_pass()
 		print("Symbol table created: ")
 		print(self.symbols)
-		self.second_pass()
+		return list(self.second_pass())
+
 
 
 
@@ -169,8 +170,8 @@ class Parser:
 				opcode.set_operand(operand)
 				opcode.den_literal = self.validate_operand(operand)
 
-				self.ram[self.pc] = opcode.to_denary()
-				self.pc += 1
+				yield opcode.to_denary()
+
 
 
 	def validate_symbol(self, symbol):
