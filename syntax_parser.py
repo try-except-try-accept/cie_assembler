@@ -25,11 +25,13 @@ class Operation:
 		if self.check_operand(operand):
 			self.operand = operand
 		else:
-			raise ParserException("Operand {operand} invalid for opcode {self.code}.")
+			raise ParserException(f"Operand {operand} invalid for opcode {self.code}.")
 
 	def check_operand(self, operand):
 		"""Check operand is valid for this operation"""
-		if operand[0] == "#":
+		if operand is None:
+			return len(self.op_modes) == 0
+		elif operand[0] == "#":
 			return 1 in self.op_modes
 		elif operand[0] == "&":
 			return 2 in self.op_modes
@@ -41,8 +43,7 @@ class Operation:
 			return 5 in self.op_modes
 		elif operand.isdigit():
 			return 0 in self.op_modes
-		else:
-			return len(self.op_modes) == 0
+
 
 	def to_denary(self):
 		return self.den_code.zfill(OPCODE_DIGS) + str(self.den_literal).zfill(OPERAND_DIGS)
@@ -157,15 +158,19 @@ class Parser:
 			else:
 				raise ParserException(f"Line {line} contains {len(instruction)} tokens.")
 
+
+
 			if symbol is not None:
 				if symbol.replace(":", "") not in self.symbols.keys():
 					raise ParserException(f"Unknown symbol: {symbol}")
 
 			if opcode is not None:									# data labels (no opcodes)
 				opcode = self.op_map[opcode]
+				opcode.set_operand(operand)
 				opcode.den_literal = self.validate_operand(operand)
 
-
+				self.ram[self.pc] = opcode.to_denary()
+				self.pc += 1
 
 
 	def validate_symbol(self, symbol):
@@ -235,39 +240,30 @@ if __name__ == "__main__":
 	from os import getcwd
 	print(getcwd())
 
-	with open(getcwd()+"/"+"opcodes.test", "r") as f:
+	passed = []
+	failed = []
+
+	with open(getcwd()+"/"+"opcodes_tests.txt", "r") as f:
 		for line in f:
 			if line.startswith("#"):
 				continue
-
+			print(line)
 			desc, code, result = line.split("/")
-
-			passed = []
-			failed = []
 
 			print("Testing:", desc)
 
+			error = False
+
 			try:
 				Parser(code.replace(",", "\n"))
-				if result == True:
-					passed.append(desc)
-				else:
-					failed.append(desc)
-			except ParserException:
-				if result == False:
-					passed.append(desc)
-				else:
-					failed.append(desc)
+			except ParserException as e:
+				print(e)
+				error = True
 
 
-		print(f"{len(failed)} failed tests")
 
-		for fail in failed:
-			print(fail)
+			if result == "True" and error or result == "False" and not error:
+				raise ParserException("Incorrect test result")
 
-		print()
 
-		print(f"{len(passed)} passed tests")
 
-		for passy in passed:
-			print(passy)
