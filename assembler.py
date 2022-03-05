@@ -1,21 +1,11 @@
 from config import *
 
-class Operation:
 
-	# operand modes:
 
-	# 0 address
-	# 1 denary literal
-	# 2 hex literal
-	# 3 bin literal
-	# 4 ACC
-	# 5 IX
-	def __init__(self, opcode, op_modes, action):
-		self.code = opcode
-		self.op_modes = op_modes
-		self.execute = action
 
 class Assembler:
+
+
 
 	def __init__(self):
 		self.ram = [0 for i in range(RAM_SIZE)]
@@ -24,26 +14,59 @@ class Assembler:
 		self.pc = 0
 		self.status = [0, 0]  # compare result / interrupt detected
 		self.end = False
+		self.symbols = {}
+
+	def validate_address(self, address):
+		if address > RAM_WIDTH - 1:
+			raise self.AssemblyException("Address {address} exceeds size of RAM")
+
+
+	def get_value(self, mode, value):
+		# 0 mode - address
+		# 1 mode - literal
+		# 2 mode - indirect
+		# 3 mode - indexed
+
+		if type(value) is not int:
+			value = self.symbols[value]
+
+		if mode == 0:
+			self.validate_address(value)
+			return self.ram[value]
+
+		elif mode == 1:
+			return value
+
+		elif mode == 2:
+			self.validate_address(value)
+			new_address = self.ram[value]
+			self.validate_address(new_address)
+			return self.ram[new_address]
+
+		elif mode == 3:
+			new_address = value + self.ix
+			self.validate_address(new_address)
+			return self.ram[new_address]
 
 	def load(self, mode, value):
 		"""Implement various load functionality"""
 
-		if mode == "M":
+		if mode == 1:
 			# Immediate addressing. Load the number n to ACC
 			self.acc = value
-		elif mode == "D":
+		elif mode == 0:
 			# Direct addressing. Load the contents of the location at the given address to
 			# ACC
 			self.acc = self.ram[value]
-		elif mode == "I":
+		elif mode == 2:
 			# Indirect addressing. The address to be used is at the given address. Load the
 			# contents of this second address to ACC
 			self.acc = self.ram[self.ram[value]]
-		elif mode == "X":
+		elif mode == 3:
 			# Indexed addressing. Form the address from <address> + the contents of the
 			# index register. Copy the contents of this calculated address to ACC
 			self.acc = self.ram[value + self.ix]
-		elif mode == "R":
+		elif mode == 4:
 			# Immediate addressing. Load the number n to IX
 			self.ix = value
 
@@ -62,23 +85,13 @@ class Assembler:
 	def add(self, mode, value):
 		"""Add the contents of the given address to the ACC / Add the number n to the
 		ACC"""
-		# 0 mode - address
-		# 1 mode - literal
-
-		if mode == 0:
-			value = self.ram[value]
-
+		value = self.get_value(mode, value)
 		self.acc += value
 
 	def subtract(self, mode, value):
 		"""Subtract the contents of the given address to the ACC / Subtract the number n to the
 		ACC"""
-		# 0 mode - address
-		# 1 mode - literal
-
-		if mode == 0:
-			value = self.ram[value]
-
+		value = self.get_value(mode, value)
 		self.acc -= value
 
 	def increment(self, mode):
@@ -122,14 +135,7 @@ class Assembler:
 		Indirect addressing. The address to be used is at the given address. Compare the
 contents of ACC with the contents of this second address"""
 
-		# 0 mode - compare address
-		# 1 mode - compare literal
-		# 2 mode - compare indirect
-
-		if mode == 0:
-			value = self.ram[value]
-		elif mode == 2:
-			value = self.ram[self.ram[value]]
+		value = self.get_value(mode, value)
 
 		if self.acc == value:
 			self.status[0] == 1
@@ -148,8 +154,11 @@ contents of ACC with the contents of this second address"""
 		"""Return control to the operating system"""
 		self.end = True
 
+	def bitwise_and(self, mode, value):
 
+		value = self.get_value(mode, value)
 
+		self.acc = self.acc & value
 
 
 

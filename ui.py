@@ -71,16 +71,23 @@ class MemoryLocation(QTextEdit):
 
 		super().textChanged.connect(self.validate)
 
+
+	def hasFocus(self):
+		self.setText("")
+
+
 	def validate(self) -> None:
 		print("Leaving")
 		new_value = self.toPlainText()
 
 		print(type(new_value))
-		if not new_value.isdigit():
+		if not new_value[1:].isdigit():
 			print("error")
 			# 	self.error.display("Illegal value")
 			self.setText(self.last_text)
-		elif len(new_value) > 3:
+		elif not(new_value[0].isdigit() or new_value[0] == "-"):
+			self.setText(self.last_text)
+		elif len(new_value.replace("-", "", 1)) > 3:
 			self.setText(new_value[:3])
 		else:
 			self.last_text = new_value
